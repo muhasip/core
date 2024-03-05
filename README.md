@@ -10,10 +10,10 @@
     <img src="https://img.shields.io/github/license/muhasip/core" alt="License" />
   </a>
   <a href="https://www.jsdelivr.com/package/npm/muhasip">
-    <img src="https://img.shields.io/github/languages/count/muhasip" alt="languages" />
+    <img src="https://img.shields.io/github/languages/count/muhasip/core" alt="languages" />
   </a>
 <a href="https://www.jsdelivr.com/package/npm/muhasip">
-    <img src="https://img.shields.io/github/languages/code-size/muhasip" alt="size" />
+    <img src="https://img.shields.io/github/languages/code-size/muhasip/core" alt="size" />
   </a>
 </p>
 <a href="https://muhasip.readme.io/">Api Dökümanı</a>

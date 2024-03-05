@@ -11,12 +11,15 @@
     "muhasebe programı",
     "nodejs"
   ],
-   "repository": {
+  "repository": {
     "type": "git",
     "url": "https://github.com/muhasip/core.git"
   },
   "bugs": {
     "url": "https://github.com/muhasip/core/issues"
+  },
+  "jest": {
+    "verbose": true
   },
   "author": "Muhasip Team <devops@muhasip.com.tr>",
   "license": "MIT",
