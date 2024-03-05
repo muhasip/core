@@ -1,0 +1,31 @@
+{
+  "name": "muhasip",
+  "version": "0.0.1",
+  "description": "Muhasip API NodeJS Kütüphanesi",
+  "main": "muhasip.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "muhasip",
+    "muhasebe programı",
+    "nodejs"
+  ],
+   "repository": {
+    "type": "git",
+    "url": "https://github.com/muhasip/core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/muhasip/core/issues"
+  },
+  "author": "Muhasip Team <devops@muhasip.com.tr>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@jest/globals": "^29.7.0",
+    "axios": "^1.6.7",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0"
+  }
+}
