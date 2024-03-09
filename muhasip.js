@@ -1,23 +1,5 @@
 const axios = require("axios")
 
-async function request(apikey, {path, method = 'get', data, params}) {
-    return axios({
-        url: "https://api.muhasip.dev/" + path,
-        method,
-        data,
-        params,
-        headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json",
-            apikey
-        }
-    }).then((response) => {
-
-        return response.data
-    }).catch(({response}) => {
-        return response.data
-    })
-}
 
 /**
  * Create an instance of Muhasip
@@ -33,9 +15,27 @@ class muhasip {
         this.apiKey = apiKey
     }
 
+    async #request({path, method = 'get', data, params}) {
+        return axios({
+            url: "https://api.muhasip.dev/" + path,
+            method,
+            data,
+            params,
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                apikey: this.apiKey
+            }
+        }).then((response) => {
+
+            return response.data
+        }).catch(({response}) => {
+            return response.data
+        })
+    }
 
     async info() {
-        return await request(this.apiKey, {path: "info"})
+        return await this.#request({path: "info"})
     }
 
     /**
@@ -47,7 +47,7 @@ class muhasip {
      *
      */
     async contacts({pageSize = 25, page = 1, archived = false, query = ''}) {
-        return await request(this.apiKey, {path: "contacts", params: {pageSize, page, archived, query}})
+        return await this.#request({path: "contacts", params: {pageSize, page, archived, query}})
     }
 
     /**
@@ -56,20 +56,22 @@ class muhasip {
      *
      */
     async contact(contactId) {
-        return await request(this.apiKey, {path: "contacts/" + contactId})
+        return await this.#request({path: "contacts/" + contactId})
     }
+
 
     /**
      *
      * @param {Number} amount
-     * @param {URL} returnUrl
+     * @param {String} returnUrl
      * @param {String} orderId
      * @param {String} description
      * @param {Boolean} commission
      *
+     * @param variables
      */
-    async posLink({amount, returnUrl, orderId, description, commission = false}) {
-        return await request(this.apiKey, {
+    async posLink({amount, returnUrl, orderId, description, commission = false, variables = {}}) {
+        return await this.#request({
             path: "pos",
             method: "post",
             data: {
@@ -77,7 +79,8 @@ class muhasip {
                 returnUrl,
                 orderId,
                 description,
-                commission
+                commission,
+                variables
             }
         })
     }
@@ -85,16 +88,62 @@ class muhasip {
     /**
      *
      * @param {String} linkId
+     * @requires linkId
      * @param {Boolean} deleted
      *
      */
     async pos(linkId, deleted = false) {
-        return await request(this.apiKey, {
+        return await this.#request({
             method: deleted ? 'delete' : 'get',
             path: "pos/" + linkId,
         })
     }
 
+    /**
+     *
+     * @param {String} linkId
+     * @requires linkId
+     * @param {String} contactsId
+     * @param {Object} variables
+     * @requires  variables
+     *
+     */
+    async posVariables(linkId, {contactsId, variables}) {
+        return await this.#request({
+            method: "put",
+            path: "pos/" + linkId,
+            data: {
+                contactsId,
+                variables
+            }
+        })
+    }
+
+    /**
+     *
+     * @param {Date} startDate
+     * @param {Date} endDate
+     * @param {Boolean} incoming
+     * @param {Number} status {0|1|2}
+     * @param {Number} pageSize
+     * @param {Number} page
+     * @returns {Promise<Promise<*> |{status:false}|{status:true}| *>}
+     */
+    async bankTransactions({
+                               startDate, endDate, incoming = false, status = 0, pageSize = 25, page = 1
+                           }) {
+        return await this.#request({
+            path: "bank/transactions",
+            params: {
+                startDate,
+                endDate,
+                incoming,
+                status,
+                pageSize,
+                page
+            }
+        })
+    }
 
 }
 
