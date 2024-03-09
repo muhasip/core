@@ -67,10 +67,9 @@ class muhasip {
      * @param {String} orderId
      * @param {String} description
      * @param {Boolean} commission
-     *
      * @param variables
      */
-    async posLink({amount, returnUrl, orderId, description, commission = false, variables = {}}) {
+    async posLink({amount, returnUrl, orderId, description, commission = false, variables}) {
         return await this.#request({
             path: "pos",
             method: "post",

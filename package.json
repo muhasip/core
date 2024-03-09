@@ -1,6 +1,6 @@
 {
   "name": "muhasip",
-  "version": "0.0.1",
+  "version": "0.0.13",
   "description": "Muhasip API NodeJS Kütüphanesi",
   "main": "muhasip.js",
   "scripts": {
